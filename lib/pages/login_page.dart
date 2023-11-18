@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
             //   height: 250,
             //   width: 350,
             // ),
+            const Icon(Icons.message_sharp, size: 230.0,),
             const SizedBox(
               height: 5.0,
             ),
@@ -131,61 +132,62 @@ class _LoginPageState extends State<LoginPage> {
                 height: 25,
               ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or contnue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: Divider(
+              //           thickness: 0.5,
+              //           color: Colors.grey[400],
+              //         ),
+              //       ),
+              //       Padding(
+              //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //         child: Text(
+              //           'Or contnue with',
+              //           style: TextStyle(color: Colors.grey[700]),
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Divider(
+              //           thickness: 0.5,
+              //           color: Colors.grey[400],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
+              // const SizedBox(
+              //   height: 50,
+              // ),
+
+              // //google + apple sign in buttons
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     // Image.asset(
+              //     //   'assets/images/google.png',
+              //     //   height: 72,
+              //     //   ),
+              //     SquareTile(
+              //         onTap: () => AuthService().signInWithGoogle(),
+              //         imagePath: 'assets/images/google.png'),
+
+              //     SizedBox(width: 25),
+
+              //     SquareTile(
+              //         onTap: () {}, imagePath: 'assets/images/google.png'),
+              //   ],
+              // ),
 
               const SizedBox(
                 height: 50,
               ),
 
-              //google + apple sign in buttons
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Image.asset(
-                  //   'assets/images/google.png',
-                  //   height: 72,
-                  //   ),
-                  SquareTile(
-                      onTap: () => AuthService().signInWithGoogle(),
-                      imagePath: 'assets/images/google.png'),
-
-                  SizedBox(width: 25),
-
-                  SquareTile(
-                      onTap: () {}, imagePath: 'assets/images/google.png'),
-                ],
-              ),
-
-              const SizedBox(
-                height: 50,
-              ),
-
-              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     'Not a member?',
@@ -202,7 +204,11 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const SizedBox(width: 15,)
                 ],
+              ),
+              Container(
+                padding: EdgeInsets.only(top: 20.0),
               )
             ],
           ),

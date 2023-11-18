@@ -32,6 +32,7 @@ class _FriendsListState extends State<FriendsList> {
         _friends = querySnapshot.docs;
       });
     }
+    
   }
 
   Widget build(BuildContext context) {
@@ -47,9 +48,9 @@ class _FriendsListState extends State<FriendsList> {
               )
             : GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, // 3 itens por linha
-                  crossAxisSpacing: 16, // Espaçamento entre itens
-                  mainAxisSpacing: 16, // Espaçamento vertical
+                  crossAxisCount: 3, 
+                  crossAxisSpacing: 16, 
+                  mainAxisSpacing: 16, 
                 ),
                 itemCount: _friends.length,
                 itemBuilder: (context, index) {
@@ -57,7 +58,7 @@ class _FriendsListState extends State<FriendsList> {
                   Map<String, dynamic>? data =
                       friendDoc.data() as Map<String, dynamic>?;
 
-                  // Crie um objeto FriendProfile
+
                   FriendProfile friendProfile = FriendProfile(
                     profilePictureUrl: data?['friendProfilePictureUrl'],
                     name: data?['friendName'],
@@ -67,7 +68,7 @@ class _FriendsListState extends State<FriendsList> {
                     uid: data?['friendUID'] ?? '',
                   );
                   String? profilePictureUrl = data?[
-                      'friendProfilePictureUrl']; // Obtenha a URL da foto de perfil
+                      'friendProfilePictureUrl']; 
 
                   return GestureDetector(
                     onTap: () {
@@ -87,10 +88,10 @@ class _FriendsListState extends State<FriendsList> {
                           backgroundImage: profilePictureUrl != null
                               ? CachedNetworkImageProvider(
                                   profilePictureUrl,
-                                ) // Use CachedNetworkImageProvider para carregar a imagem da URL
+                                ) 
                               : AssetImage('assets/images/gato-obeso.jpg')
                                   as ImageProvider<
-                                      Object>?, // Se não houver foto, use uma imagem padrão
+                                      Object>?, 
                         ),
                         SizedBox(height: 8),
                         Text(data?['friendName'] ?? ''),

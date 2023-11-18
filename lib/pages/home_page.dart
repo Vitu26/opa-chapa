@@ -68,6 +68,7 @@ class _HomePageState extends State<HomePage> {
                 (friendsMessages[friendUID]['timestamp'] as Timestamp).toDate())) {
           friendsMessages[friendUID] = data;
         }
+        data['profilePictureUrl'] = data?['friendProfilePictureUrl'];
       }
 
       // Buscar mensagens onde o usuário é o destinatário
@@ -89,6 +90,7 @@ class _HomePageState extends State<HomePage> {
           friendsMessages[friendUID] = data;
         }
       }
+      
     }
 
     return friendsMessages;
@@ -98,6 +100,7 @@ class _HomePageState extends State<HomePage> {
     DocumentSnapshot userDoc = await _firestore.collection('users').doc(uid).get();
     if (userDoc.exists) {
       var userData = userDoc.data() as Map<String, dynamic>;
+      
       return userData['name'] ?? 'Nome Desconhecido';
     }
     return 'Nome Desconhecido';
@@ -129,9 +132,15 @@ class _HomePageState extends State<HomePage> {
 
                 return ListTile(
                   leading: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage('assets/images/gato-obeso.jpg'),
-                  ),
+                          radius: 40,
+                          backgroundImage: message['profilePictureUrl'] != null
+                              ? CachedNetworkImageProvider(
+                                 message['profilePictureUrl']
+                                ) 
+                              : AssetImage('assets/images/gato-obeso.jpg')
+                                  as ImageProvider<
+                                      Object>?, // 
+                        ),
                   title: Text('Chat com ${message['senderName'] ?? 'Usuário Desconhecido'}'),
                   subtitle: Text(message['content'] ?? ''),
                   onTap: () {

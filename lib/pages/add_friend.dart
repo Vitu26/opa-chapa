@@ -12,26 +12,26 @@ class AddFriend extends StatefulWidget {
 }
 
 class _AddFriendState extends State<AddFriend> {
-  // Controlador para o campo de pesquisa
+
   TextEditingController _searchController = TextEditingController();
 
-  // Lista para armazenar os resultados da pesquisa
+
   List<DocumentSnapshot> _searchResults = [];
 
-  // Assunto para ouvir as mudanças no campo de pesquisa com debounce
+
   final _searchSubject = BehaviorSubject<String>();
 
-  // Lista para armazenar os UIDs dos amigos adicionados
+
   List<String> addedFriendsUIDs = [];
 
-  // Mensagem de feedback
+
   String _feedbackMessage = '';
 
   @override
   void initState() {
     super.initState();
 
-    // Configurar um observador para o campo de pesquisa com debounce
+
     _searchSubject.stream
         .debounceTime(Duration(milliseconds: 300))
         .listen((name) async {
@@ -104,7 +104,7 @@ class _AddFriendState extends State<AddFriend> {
           userSnapshot.data()! as Map<String, dynamic>;
 
       // Define um documento na coleção 'friends' do usuário amigo (friendUID)
-      // Este documento representa a entrada de amizade entre o usuário atual e o amigo
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(friendUID)
@@ -116,7 +116,7 @@ class _AddFriendState extends State<AddFriend> {
         'friendEmail': userDetails['email'], // E-mail do amigo
         'friendPhone': userDetails['phone'], // Número de telefone do amigo
         'friendUID': yourUID, // UID do usuário atual (para referência)
-        // Outros campos relevantes (se houver)
+
       });
     } else {
       // Se o documento do usuário atual não existe, imprime uma mensagem de erro
@@ -160,50 +160,47 @@ class _AddFriendState extends State<AddFriend> {
             .doc(friendUID)
             .get();
 
-        // Verifica se o documento do amigo existe
-        // Verifica se o documento do amigo existe
+
         if (friendSnapshot.exists) {
-          // Extrai os detalhes do amigo dos dados do DocumentSnapshot
+
           Map<String, dynamic> friendDetails =
               friendSnapshot.data()! as Map<String, dynamic>;
 
-          // Define um novo documento na coleção 'friends' do usuário atual
-          // para representar a amizade com o amigo
+
           await FirebaseFirestore.instance
               .collection('users')
-              .doc(user.uid) // Usuário atual
-              .collection('friends') // Coleção 'friends' do usuário atual
-              .doc(friendUID) // Documento identificado pelo UID do amigo
+              .doc(user.uid) 
+              .collection('friends') 
+              .doc(friendUID) 
               .set({
             'friendName': friendDetails['name'], // Nome do amigo
             'friendLastName': friendDetails['last name'], // Sobrenome do amigo
             'friendEmail': friendDetails['email'], // E-mail do amigo
             'friendPhone':
-                friendDetails['phone'], // Número de telefone do amigo
-            'friendUID': friendUID, // UID do amigo
+                friendDetails['phone'], 
+            'friendUID': friendUID, 
             'friendProfilePictureUrl':
                 friendDetails.containsKey('profile_picture_url')
                     ? friendDetails['profile_picture_url']
                     : null,
-            // Outros campos relevantes (se houver)
+
           });
 
-          // Define uma mensagem de feedback indicando que o amigo foi adicionado com sucesso
+
           setState(() {
             _feedbackMessage = 'Amigo adicionado com sucesso!';
           });
 
-          // Chama o método addAsFriendToOtherUser para também adicionar o usuário atual
-          // como amigo do amigo (bidirecional)
+
           await addAsFriendToOtherUser(user.uid, friendUID);
         } else {
-          // Define uma mensagem de feedback indicando que nenhum usuário foi encontrado com o UID especificado
+
           setState(() {
             _feedbackMessage = 'Nenhum usuário encontrado com UID: $friendUID';
           });
         }
       } catch (error) {
-        // Define uma mensagem de feedback indicando que ocorreu um erro ao adicionar o amigo
+
         setState(() {
           _feedbackMessage = 'Erro ao adicionar amigo: $error';
         });
@@ -262,7 +259,7 @@ class _AddFriendState extends State<AddFriend> {
                           ? NetworkImage(userDoc['profilePictureUrl'])
                               as ImageProvider<Object>?
                           : AssetImage(
-                              'assets/images/gato-obeso.jpg'), // Corrigido o caminho para a imagem
+                              'assets/images/gato-obeso.jpg'), 
 
                       radius: 25.0,
                     ),

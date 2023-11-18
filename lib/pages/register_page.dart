@@ -68,17 +68,6 @@ class _RegisterPageState extends State<RegisterPage> {
         'phone': phone,
       });
 
-      //  // Adicionar o usuário à subcoleção 'friends' com um documento de exemplo
-      // await FirebaseFirestore.instance
-      //     .collection('users')
-      //     .doc(user.uid)
-      //     .collection('friends')
-      //     .doc(
-      //         'exampleFriendID') 
-      //     .set({
-      //   'friendName': 'Exemplo de Amigo',
-      //   // Adicione outros campos relevantes
-      // });
     }
   }
 
@@ -94,7 +83,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Future addFriendToUser(String friendUID) async {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // 1. Recuperar detalhes do amigo usando seu UID
+      //Recuperar detalhes do amigo usando seu UID
       DocumentSnapshot friendSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(friendUID)
@@ -104,7 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
         Map<String, dynamic> friendDetails =
             friendSnapshot.data()! as Map<String, dynamic>;
 
-        // 2. Adicionar detalhes do amigo à subcoleção 'friends' do usuário atual
+        //Adicionar detalhes do amigo à subcoleção 'friends' do usuário atual
         await FirebaseFirestore.instance
             .collection('users')
             .doc(user.uid)
@@ -154,6 +143,8 @@ class _RegisterPageState extends State<RegisterPage> {
               //   height: 250,
               //   width: 350,
               // ),
+
+              const Icon(Icons.message_sharp, size: 230.0,),
 
               const SizedBox(
                 height: 10,
@@ -246,54 +237,55 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 25,
               ),
 
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text(
-                        'Or contnue with',
-                        style: TextStyle(color: Colors.grey[700]),
-                      ),
-                    ),
-                    Expanded(
-                      child: Divider(
-                        thickness: 0.5,
-                        color: Colors.grey[400],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 25.0),
+              //   child: Row(
+              //     children: [
+              //       Expanded(
+              //         child: Divider(
+              //           thickness: 0.5,
+              //           color: Colors.grey[400],
+              //         ),
+              //       ),
+              //       Padding(
+              //         padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              //         child: Text(
+              //           'Or contnue with',
+              //           style: TextStyle(color: Colors.grey[700]),
+              //         ),
+              //       ),
+              //       Expanded(
+              //         child: Divider(
+              //           thickness: 0.5,
+              //           color: Colors.grey[400],
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+
+              // const SizedBox(
+              //   height: 50,
+              // ),
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     SquareTile(
+              //         onTap: () => AuthService().signInWithGoogle(),
+              //         imagePath: 'assets/images/google.png'),
+              //     SizedBox(width: 25),
+              //     SquareTile(
+              //         onTap: () {}, imagePath: 'assets/images/google.png'),
+              //   ],
+              // ),
 
               const SizedBox(
                 height: 50,
               ),
 
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SquareTile(
-                      onTap: () => AuthService().signInWithGoogle(),
-                      imagePath: 'assets/images/google.png'),
-                  SizedBox(width: 25),
-                  SquareTile(
-                      onTap: () {}, imagePath: 'assets/images/google.png'),
-                ],
-              ),
-
-              const SizedBox(
-                height: 50,
-              ),
-
-              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
                     'Already have an account?',
@@ -310,6 +302,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           color: Colors.blue, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  const SizedBox(width: 15.0,)
                 ],
               )
             ],
